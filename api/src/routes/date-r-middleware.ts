@@ -18,13 +18,24 @@ export async function handleParseDateRequest(req: Request, res: Response) {
 import { DateTime } from "luxon";
 
 export function parseDate(dtFromReq: any) {
-  const dt = dtFromReq;
+  let dt = dtFromReq;
   console.log(dt);
   if (!dt) {
     throw new Error("La fecha es falsy");
   }
-  const date = new Date(dt);
+  let date = new Date(dt);
   const luxonDate = DateTime.fromISO(dt);
+  console.log("luxonDate = ", luxonDate);
+  console.log("TYPEOF LUXONDATE = ", typeof luxonDate);
+  console.log(luxonDate?.invalidReason);
+  if (luxonDate?.invalidReason) {
+    let toDate = new Date(Number(dt));
+    console.log("toDate = ", toDate);
+    dt = toDate.toISOString();
+    date = new Date(dt);
+  }
+  const unixToDate = new Date(Number(dt));
+  console.log("unixToDate ", unixToDate);
 
   let resObj: any = {
     x: DateTime.fromISO(dt).toFormat("x"),
