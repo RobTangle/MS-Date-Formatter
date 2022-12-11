@@ -23,7 +23,9 @@ export function parseDate(dtFromReq: any) {
   if (!dt) {
     throw new Error("La fecha es falsy");
   }
+
   let date = new Date(dt);
+
   const luxonDate = DateTime.fromISO(dt);
   console.log("luxonDate = ", luxonDate);
   console.log("TYPEOF LUXONDATE = ", typeof luxonDate);
@@ -51,8 +53,26 @@ export function parseDate(dtFromReq: any) {
     DD: DateTime.fromISO(dt).toFormat("DD"),
     DDD: DateTime.fromISO(dt).toFormat("DDD"),
     DDDD: DateTime.fromISO(dt).toFormat("DDDD"),
-    luxonDate: luxonDate,
-    luxonfromSQL: DateTime.fromSQL(dt),
+    WW: DateTime.fromISO(dt).toFormat("WW"),
+    o: DateTime.fromISO(dt).toFormat("o"),
+    ooo: DateTime.fromISO(dt).toFormat("ooo"),
+    q: DateTime.fromISO(dt).toFormat("q"),
+    qq: DateTime.fromISO(dt).toFormat("qq"),
+    cccc: DateTime.fromISO(dt).toFormat("cccc"),
+    L: DateTime.fromISO(dt).toFormat("L"),
+    LL: DateTime.fromISO(dt).toFormat("LL"),
+    LLL: DateTime.fromISO(dt).toFormat("LLL"),
+    LLLL: DateTime.fromISO(dt).toFormat("LLLL"),
+    Z: DateTime.fromISO(dt).toFormat("Z"),
+    ZZ: DateTime.fromISO(dt).toFormat("ZZ"),
+    ZZZ: DateTime.fromISO(dt).toFormat("ZZZ"),
+    ZZZZ: DateTime.fromISO(dt).toFormat("ZZZZ"),
+    ZZZZZ: DateTime.fromISO(dt).toFormat("ZZZZZ"),
+    a: DateTime.fromISO(dt).toFormat("a"),
+    d: DateTime.fromISO(dt).toFormat("d"),
+    dd: DateTime.fromISO(dt).toFormat("dd"),
+    // luxonDate: luxonDate,
+    // luxonfromSQL: DateTime.fromSQL(dt),
     date: date,
     dt: dt,
     unix: undefined,
@@ -71,8 +91,8 @@ export function parseDate(dtFromReq: any) {
   resObj.toString = date.toString();
   resObj.utcDay = date.getUTCDate();
   resObj.year = date.getFullYear();
-  resObj.month = date.getMonth();
-  resObj.dmy = `${resObj.utcDay}-${resObj.month + 1}-${resObj.year}`;
+  resObj.month = DateTime.fromISO(dt).toFormat("LL");
+  resObj.dmy = `${resObj.utcDay}-${resObj.month}-${resObj.year}`;
   resObj.toDateString = date.toDateString();
   // resObj.UTCFullyear = date.getUTCFullYear();
   return resObj;
