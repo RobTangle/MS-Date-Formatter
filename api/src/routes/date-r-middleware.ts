@@ -3,10 +3,10 @@ import { Request, Response } from "express";
 export async function handleParseDateRequest(req: Request, res: Response) {
   try {
     console.log(req.params);
-
+    const { format } = req.query;
     const { dt } = req.params;
-    const datesParsedObj = parseDate(dt);
-    return res.status(200).send({ date: datesParsedObj });
+    const datesParsedObj = parseDate(dt, format);
+    return res.status(200).send(datesParsedObj);
   } catch (error: any) {
     console.log("Error en handleParseDate");
     return res.status(400).send({ error: "Algo salió mal." });
@@ -17,7 +17,7 @@ export async function handleParseDateRequest(req: Request, res: Response) {
 // Transformo esa fecha a un formato estandar, y desde ese formato empiezo a crear los distitos tipos de fechas con Luxon.
 import { DateTime } from "luxon";
 
-export function parseDate(dtFromReq: any) {
+export function parseDate(dtFromReq: any, format: any) {
   let dt = dtFromReq;
   console.log(dt);
   if (!dt) {
@@ -38,6 +38,12 @@ export function parseDate(dtFromReq: any) {
   }
   const unixToDate = new Date(Number(dt));
   console.log("unixToDate ", unixToDate);
+
+  if (format) {
+    return {
+      [format]: DateTime.fromISO(dt).toFormat(format),
+    };
+  }
 
   let resObj: any = {
     x: DateTime.fromISO(dt).toFormat("x"),
