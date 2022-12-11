@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microservice - Dates Formatter</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <h1>Dates formatter Microservice</h1>
+  <hr />
+  <div class="container">
+    <h3>Example Usage:</h3>
+    <ul>
+      <li><a href="api/2022-12-04">[project url]/api/2022-12-04</a></li>
+      <li><a href="api/1670122800000">[project url]/api/1670122800000</a></li>
+    </ul>
+
+    <h3>Example Output:</h3>
+    <p>
+      <code>
+{
+"x": "1670122800000",
+"f": "4/12/2022, 0:00",
+"ff": "4 dic 2022, 0:00",
+"fff": "4 de diciembre de 2022, 0:00 GMT-3",
+"ffff": "domingo, 4 de diciembre de 2022, 0:00 hora estándar de Argentina",
+"F": "4/12/2022, 0:00:00",
+"FF": "4 dic 2022, 0:00:00",
+"FFF": "4 de diciembre de 2022, 0:00:00 GMT-3",
+"FFFF": "domingo, 4 de diciembre de 2022, 0:00:00 (hora estándar de Argentina)",
+"D": "4/12/2022",
+"DD": "4 dic 2022",
+"DDD": "4 de diciembre de 2022",
+"DDDD": "domingo, 4 de diciembre de 2022",
+"WW": "48",
+"o": "338",
+"ooo": "338",
+"q": "4",
+"qq": "04",
+"cccc": "Sunday",
+"L": "12",
+"LL": "12",
+"LLL": "Dec",
+"LLLL": "December",
+"Z": "-3",
+"ZZ": "-03:00",
+"ZZZ": "-0300",
+"ZZZZ": "GMT-3",
+"ZZZZZ": "Argentina Standard Time",
+"a": "AM",
+"d": "4",
+"dd": "04",
+"date": "2022-12-04T03:00:00.000Z",
+"dt": "2022-12-04T03:00:00.000Z",
+"unix": 1670122800000,
+"utc": "Sun, 04 Dec 2022 03:00:00 GMT",
+"iso": "2022-12-04T03:00:00.000Z",
+"json": "2022-12-04T03:00:00.000Z",
+"localeDate": "4/12/2022",
+"localeTime": "0:00:00",
+"toTime": "00:00:00 GMT-0300 (hora estándar de Argentina)",
+"toString": "Sun Dec 04 2022 00:00:00 GMT-0300 (hora estándar de Argentina)",
+"utcDay": 4,
+"year": 2022,
+"month": "12",
+"dmy": "4-12-2022",
+"toDateString": "Sun Dec 04 2022"
+}
+      </code>
+    </p>
+    <h3>Specifing format in query:</h3>
+    <ul>
+      <li><a href="api/2022-12-04?format=DDDD">[project url]/api/2022-12-04?format=DDDD</a></li>
+      <li><a href="api/1670122800000?format=DDDD">[project url]/api/1670122800000?format=DDDD</a></li>
+    </ul>
+
+    <h3>Example Output:</h3>
+    <code>
+      {
+      "DDDD": "domingo, 4 de diciembre de 2022"
+      }
+    </code>
+    <div>
+      <h3>Table of tokens for format query:</h3>
+      <p>(Examples below given for 2014-08-06T13:07:04.054 considered as a local time in America/New_York).</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Standalone token</th>
+            <th>Format token</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S</td>
+            <td></td>
+            <td>millisecond, no padding</td>
+            <td><code>54</code></td>
+          </tr>
+          <tr>
+            <td>SSS</td>
+            <td></td>
+            <td>millisecond, padded to 3</td>
+            <td><code>054</code></td>
+          </tr>
+          <tr>
+            <td>u</td>
+            <td></td>
+            <td>fractional seconds, functionally identical to SSS</td>
+            <td><code>054</code></td>
+          </tr>
+          <tr>
+            <td>uu</td>
+            <td></td>
+            <td>fractional seconds, between 0 and 99, padded to 2</td>
+            <td><code>05</code></td>
+          </tr>
+          <tr>
+            <td>uuu</td>
+            <td></td>
+            <td>fractional seconds, between 0 and 9</td>
+            <td><code>0</code></td>
+          </tr>
+          <tr>
+            <td>s</td>
+            <td></td>
+            <td>second, no padding</td>
+            <td><code>4</code></td>
+          </tr>
+          <tr>
+            <td>ss</td>
+            <td></td>
+            <td>second, padded to 2 padding</td>
+            <td><code>04</code></td>
+          </tr>
+          <tr>
+            <td>m</td>
+            <td></td>
+            <td>minute, no padding</td>
+            <td><code>7</code></td>
+          </tr>
+          <tr>
+            <td>mm</td>
+            <td></td>
+            <td>minute, padded to 2</td>
+            <td><code>07</code></td>
+          </tr>
+          <tr>
+            <td>h</td>
+            <td></td>
+            <td>hour in 12-hour time, no padding</td>
+            <td><code>1</code></td>
+          </tr>
+          <tr>
+            <td>hh</td>
+            <td></td>
+            <td>hour in 12-hour time, padded to 2</td>
+            <td><code>01</code></td>
+          </tr>
+          <tr>
+            <td>H</td>
+            <td></td>
+            <td>hour in 24-hour time, no padding</td>
+            <td><code>9</code></td>
+          </tr>
+          <tr>
+            <td>HH</td>
+            <td></td>
+            <td>hour in 24-hour time, padded to 2</td>
+            <td><code>13</code></td>
+          </tr>
+          <tr>
+            <td>Z</td>
+            <td></td>
+            <td>narrow offset</td>
+            <td><code>+5</code></td>
+          </tr>
+          <tr>
+            <td>ZZ</td>
+            <td></td>
+            <td>short offset</td>
+            <td><code>+05:00</code></td>
+          </tr>
+          <tr>
+            <td>ZZZ</td>
+            <td></td>
+            <td>techie offset</td>
+            <td><code>+0500</code></td>
+          </tr>
+          <tr>
+            <td>ZZZZ</td>
+            <td></td>
+            <td>abbreviated named offset</td>
+            <td><code>EST</code></td>
+          </tr>
+          <tr>
+            <td>ZZZZZ</td>
+            <td></td>
+            <td>unabbreviated named offset</td>
+            <td><code>Eastern Standard Time</code></td>
+          </tr>
+          <tr>
+            <td>z</td>
+            <td></td>
+            <td>IANA zone</td>
+            <td><code>America/New_York</code></td>
+          </tr>
+          <tr>
+            <td>a</td>
+            <td></td>
+            <td>meridiem</td>
+            <td><code>AM</code></td>
+          </tr>
+          <tr>
+            <td>d</td>
+            <td></td>
+            <td>day of the month, no padding</td>
+            <td><code>6</code></td>
+          </tr>
+          <tr>
+            <td>dd</td>
+            <td></td>
+            <td>day of the month, padded to 2</td>
+            <td><code>06</code></td>
+          </tr>
+          <tr>
+            <td>c</td>
+            <td>E</td>
+            <td>day of the week, as number from 1-7 (Monday is 1, Sunday is 7)</td>
+            <td><code>3</code></td>
+          </tr>
+          <tr>
+            <td>ccc</td>
+            <td>EEE</td>
+            <td>day of the week, as an abbreviate localized string</td>
+            <td><code>Wed</code></td>
+          </tr>
+          <tr>
+            <td>cccc</td>
+            <td>EEEE</td>
+            <td>day of the week, as an unabbreviated localized string</td>
+            <td><code>Wednesday</code></td>
+          </tr>
+          <tr>
+            <td>ccccc</td>
+            <td>EEEEE</td>
+            <td>day of the week, as a single localized letter</td>
+            <td><code>W</code></td>
+          </tr>
+          <tr>
+            <td>L</td>
+            <td>M</td>
+            <td>month as an unpadded number</td>
+            <td><code>8</code></td>
+          </tr>
+          <tr>
+            <td>LL</td>
+            <td>MM</td>
+            <td>month as a padded number</td>
+            <td><code>08</code></td>
+          </tr>
+          <tr>
+            <td>LLL</td>
+            <td>MMM</td>
+            <td>month as an abbreviated localized string</td>
+            <td><code>Aug</code></td>
+          </tr>
+          <tr>
+            <td>LLLL</td>
+            <td>MMMM</td>
+            <td>month as an unabbreviated localized string</td>
+            <td><code>August</code></td>
+          </tr>
+          <tr>
+            <td>LLLLL</td>
+            <td>MMMMM</td>
+            <td>month as a single localized letter</td>
+            <td><code>A</code></td>
+          </tr>
+          <tr>
+            <td>y</td>
+            <td></td>
+            <td>year, unpadded</td>
+            <td><code>2014</code></td>
+          </tr>
+          <tr>
+            <td>yy</td>
+            <td></td>
+            <td>two-digit year</td>
+            <td><code>14</code></td>
+          </tr>
+          <tr>
+            <td>yyyy</td>
+            <td></td>
+            <td>four- to six- digit year, pads to 4</td>
+            <td><code>2014</code></td>
+          </tr>
+          <tr>
+            <td>G</td>
+            <td></td>
+            <td>abbreviated localized era</td>
+            <td><code>AD</code></td>
+          </tr>
+          <tr>
+            <td>GG</td>
+            <td></td>
+            <td>unabbreviated localized era</td>
+            <td><code>Anno Domini</code></td>
+          </tr>
+          <tr>
+            <td>GGGGG</td>
+            <td></td>
+            <td>one-letter localized era</td>
+            <td><code>A</code></td>
+          </tr>
+          <tr>
+            <td>kk</td>
+            <td></td>
+            <td>ISO week year, unpadded</td>
+            <td><code>14</code></td>
+          </tr>
+          <tr>
+            <td>kkkk</td>
+            <td></td>
+            <td>ISO week year, padded to 4</td>
+            <td><code>2014</code></td>
+          </tr>
+          <tr>
+            <td>W</td>
+            <td></td>
+            <td>ISO week number, unpadded</td>
+            <td><code>32</code></td>
+          </tr>
+          <tr>
+            <td>WW</td>
+            <td></td>
+            <td>ISO week number, padded to 2</td>
+            <td><code>32</code></td>
+          </tr>
+          <tr>
+            <td>o</td>
+            <td></td>
+            <td>ordinal (day of year), unpadded</td>
+            <td><code>218</code></td>
+          </tr>
+          <tr>
+            <td>ooo</td>
+            <td></td>
+            <td>ordinal (day of year), padded to 3</td>
+            <td><code>218</code></td>
+          </tr>
+          <tr>
+            <td>q</td>
+            <td></td>
+            <td>quarter, no padding</td>
+            <td><code>3</code></td>
+          </tr>
+          <tr>
+            <td>qq</td>
+            <td></td>
+            <td>quarter, padded to 2</td>
+            <td><code>03</code></td>
+          </tr>
+          <tr>
+            <td>D</td>
+            <td></td>
+            <td>localized numeric date</td>
+            <td><code>9/4/2017</code></td>
+          </tr>
+          <tr>
+            <td>DD</td>
+            <td></td>
+            <td>localized date with abbreviated month</td>
+            <td><code>Aug 6, 2014</code></td>
+          </tr>
+          <tr>
+            <td>DDD</td>
+            <td></td>
+            <td>localized date with full month</td>
+            <td><code>August 6, 2014</code></td>
+          </tr>
+          <tr>
+            <td>DDDD</td>
+            <td></td>
+            <td>localized date with full month and weekday</td>
+            <td><code>Wednesday, August 6, 2014</code></td>
+          </tr>
+          <tr>
+            <td>t</td>
+            <td></td>
+            <td>localized time</td>
+            <td><code>9:07 AM</code></td>
+          </tr>
+          <tr>
+            <td>tt</td>
+            <td></td>
+            <td>localized time with seconds</td>
+            <td><code>1:07:04 PM</code></td>
+          </tr>
+          <tr>
+            <td>ttt</td>
+            <td></td>
+            <td>localized time with seconds and abbreviated offset</td>
+            <td><code>1:07:04 PM EDT</code></td>
+          </tr>
+          <tr>
+            <td>tttt</td>
+            <td></td>
+            <td>localized time with seconds and full offset</td>
+            <td><code>1:07:04 PM Eastern Daylight Time</code></td>
+          </tr>
+          <tr>
+            <td>T</td>
+            <td></td>
+            <td>localized 24-hour time</td>
+            <td><code>13:07</code></td>
+          </tr>
+          <tr>
+            <td>TT</td>
+            <td></td>
+            <td>localized 24-hour time with seconds</td>
+            <td><code>13:07:04</code></td>
+          </tr>
+          <tr>
+            <td>TTT</td>
+            <td></td>
+            <td>localized 24-hour time with seconds and abbreviated offset</td>
+            <td><code>13:07:04 EDT</code></td>
+          </tr>
+          <tr>
+            <td>TTTT</td>
+            <td></td>
+            <td>localized 24-hour time with seconds and full offset</td>
+            <td><code>13:07:04 Eastern Daylight Time</code></td>
+          </tr>
+          <tr>
+            <td>f</td>
+            <td></td>
+            <td>short localized date and time</td>
+            <td><code>8/6/2014, 1:07 PM</code></td>
+          </tr>
+          <tr>
+            <td>ff</td>
+            <td></td>
+            <td>less short localized date and time</td>
+            <td><code>Aug 6, 2014, 1:07 PM</code></td>
+          </tr>
+          <tr>
+            <td>fff</td>
+            <td></td>
+            <td>verbose localized date and time</td>
+            <td><code>August 6, 2014, 1:07 PM EDT</code></td>
+          </tr>
+          <tr>
+            <td>ffff</td>
+            <td></td>
+            <td>extra verbose localized date and time</td>
+            <td><code>Wednesday, August 6, 2014, 1:07 PM Eastern Daylight Time</code></td>
+          </tr>
+          <tr>
+            <td>F</td>
+            <td></td>
+            <td>short localized date and time with seconds</td>
+            <td><code>8/6/2014, 1:07:04 PM</code></td>
+          </tr>
+          <tr>
+            <td>FF</td>
+            <td></td>
+            <td>less short localized date and time with seconds</td>
+            <td><code>Aug 6, 2014, 1:07:04 PM</code></td>
+          </tr>
+          <tr>
+            <td>FFF</td>
+            <td></td>
+            <td>verbose localized date and time with seconds</td>
+            <td><code>August 6, 2014, 1:07:04 PM EDT</code></td>
+          </tr>
+          <tr>
+            <td>FFFF</td>
+            <td></td>
+            <td>extra verbose localized date and time with seconds</td>
+            <td><code>Wednesday, August 6, 2014, 1:07:04 PM Eastern Daylight Time</code></td>
+          </tr>
+          <tr>
+            <td>X</td>
+            <td></td>
+            <td>unix timestamp in seconds</td>
+            <td><code>1407287224</code></td>
+          </tr>
+          <tr>
+            <td>x</td>
+            <td></td>
+            <td>unix timestamp in milliseconds</td>
+            <td><code>1407287224054</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+    <p>
+      By <a href="https://www.robertospinelli.vercel.app/">Roberto Spinelli</a>
+    </p>
+  </div>
+</body>
+
+</html>
