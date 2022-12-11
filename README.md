@@ -1,6 +1,6 @@
 # MicroService - Timestamps and Dates Formatter
 
-This microservice was created to give users an easy way to format unix and yyyy-mm-dd dates, into more than 30 different date and time formats.
+This microservice was created to give users an easy way to format unix and utc dates, into more than 30 different date and time formats.
 
 Here are some examples of how to use this MS:
 
@@ -26,31 +26,31 @@ This request will respond with an object with many different properties. Each pr
 
 {
 
-"x": "1670122800000",
+"x": "1670112000000",
 
-"f": "4/12/2022, 0:00",
+"f": "12/4/2022, 12:00 AM",
 
-"ff": "4 dic 2022, 0:00",
+"ff": "Dec 4, 2022, 12:00 AM",
 
-"fff": "4 de diciembre de 2022, 0:00 GMT-3",
+"fff": "December 4, 2022 at 12:00 AM UTC",
 
-"ffff": "domingo, 4 de diciembre de 2022, 0:00 hora estándar de Argentina",
+"ffff": "Sunday, December 4, 2022 at 12:00 AM Coordinated Universal Time",
 
-"F": "4/12/2022, 0:00:00",
+"F": "12/4/2022, 12:00:00 AM",
 
-"FF": "4 dic 2022, 0:00:00",
+"FF": "Dec 4, 2022, 12:00:00 AM",
 
-"FFF": "4 de diciembre de 2022, 0:00:00 GMT-3",
+"FFF": "December 4, 2022 at 12:00:00 AM UTC",
 
-"FFFF": "domingo, 4 de diciembre de 2022, 0:00:00 (hora estándar de Argentina)",
+"FFFF": "Sunday, December 4, 2022 at 12:00:00 AM Coordinated Universal Time",
 
-"D": "4/12/2022",
+"D": "12/4/2022",
 
-"DD": "4 dic 2022",
+"DD": "Dec 4, 2022",
 
-"DDD": "4 de diciembre de 2022",
+"DDD": "December 4, 2022",
 
-"DDDD": "domingo, 4 de diciembre de 2022",
+"DDDD": "Sunday, December 4, 2022",
 
 "WW": "48",
 
@@ -72,15 +72,15 @@ This request will respond with an object with many different properties. Each pr
 
 "LLLL": "December",
 
-"Z": "-3",
+"Z": "+0",
 
-"ZZ": "-03:00",
+"ZZ": "+00:00",
 
-"ZZZ": "-0300",
+"ZZZ": "+0000",
 
-"ZZZZ": "GMT-3",
+"ZZZZ": "UTC",
 
-"ZZZZZ": "Argentina Standard Time",
+"ZZZZZ": "Coordinated Universal Time",
 
 "a": "AM",
 
@@ -100,13 +100,13 @@ This request will respond with an object with many different properties. Each pr
 
 "json": "2022-12-04T00:00:00.000Z",
 
-"localeDate": "3/12/2022",
+"localeDate": "12/4/2022",
 
-"localeTime": "21:00:00",
+"localeTime": "12:00:00 AM",
 
-"toTime": "21:00:00 GMT-0300 (hora estándar de Argentina)",
+"toTime": "00:00:00 GMT+0000 (Coordinated Universal Time)",
 
-"toString": "Sat Dec 03 2022 21:00:00 GMT-0300 (hora estándar de Argentina)",
+"toString": "Sun Dec 04 2022 00:00:00 GMT+0000 (Coordinated Universal Time)",
 
 "utcDay": 4,
 
@@ -116,7 +116,7 @@ This request will respond with an object with many different properties. Each pr
 
 "dmy": "4-12-2022",
 
-"toDateString": "Sat Dec 03 2022"
+"toDateString": "Sun Dec 04 2022"
 
 }
 
