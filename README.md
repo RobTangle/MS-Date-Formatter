@@ -1,4 +1,4 @@
-# MicroService - Timestamps and dates formatting
+# MicroService - Timestamps and Dates Formatter
 
 This microservice was created to give users an easy way to format unix and yyyy-mm-dd dates, into more than 30 different date and time formats.
 
