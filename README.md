@@ -25,6 +25,7 @@ GET https://ms-URL/api/1670122800000
 This request will respond with an object with many different properties. Each property is a different date or time format of the date pased in the request params.
 
 {
+
 "x": "1670112000000",
 
 "f": "12/4/2022, 12:00 AM",
