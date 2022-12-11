@@ -46,9 +46,19 @@ a {
 }
 
 table {
-  border: solid black;
+  /* border: solid black; */
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: inline-table;
+  margin-bottom: 1rem;
+  overflow: auto;
+  width: auto;
 }
 
 tr {
-  border: dotted gray;
+  border: solid rgb(190, 188, 188);
+}
+
+td {
+  border: solid rgb(192, 191, 191);
 }
