@@ -122,8 +122,8 @@ function parseDate(dtFromReq, format) {
     resObj.utcDay = date.getUTCDate();
     resObj.year = date.getFullYear();
     resObj.month = Number(luxon_1.DateTime.fromISO(dt).toFormat("LL"));
-    resObj.dmy = `${resObj.utcDay}-${resObj.MM}-${resObj.year}`;
-    resObj.ymd = `${resObj.year}-${resObj.MM}-${resObj.utcDay}`;
+    resObj.dmy = `${resObj.dd}-${resObj.MM}-${resObj.year}`;
+    resObj.ymd = `${resObj.year}-${resObj.MM}-${resObj.dd}`;
     resObj.toDateString = date.toDateString();
     // resObj.UTCFullyear = date.getUTCFullYear();
     console.log(Date.now());
