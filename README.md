@@ -5,7 +5,7 @@ This microservice was created to give users an easy way to format unix and utc d
 Here are some examples of how to use this MS:
 
 1. Make a GET Request to the API URL, passing the date that you want to the req.params.date
-   API URL: https://msURL/api/:date
+   API URL: https://ms-date-formatter.up.railway.app/api/:date
    Different types of date formats are allowed:
 
 unix: "1670122800000"
@@ -16,11 +16,11 @@ yyyy-mm-dd: "2022-12-04" (tipical from html date input)
 
 Examples:
 
-GET https://msURL/api/2022-04-12
+GET https://ms-date-formatter.up.railway.app/api/2022-04-12
 
-GET https://ms-URL/api/2022-04-12T00:00:00.000Z"
+GET https://ms-date-formatter.up.railway.app/api/2022-04-12T00:00:00.000Z"
 
-GET https://ms-URL/api/1670122800000
+GET https://ms-date-formatter.up.railway.app/api/1670122800000
 
 This request will respond with an object with many different properties. Each property is a different date or time format of the date pased in the request params.
 
@@ -120,7 +120,7 @@ This request will respond with an object with many different properties. Each pr
 
 }
 
-2. If you don't want to get as a response an object with all this different date formats, **you can choose to pass the specific desired format through the req.query.format value:** https://ms-URL/api/2022-12-04?format=DDDD
+2. If you don't want to get as a response an object with all this different date formats, **you can choose to pass the specific desired format through the req.query.format value:** https://ms-date-formatter.up.railway.app/api/2022-12-04?format=DDDD
 
 This request will respond with an object like this:
 
@@ -129,4 +129,4 @@ This request will respond with an object like this:
 }
 
 You can also pass unix dates:
-https://ms-URL/api/1670122800000?format=DDDD
+https://ms-date-formatter.up.railway.app/api/1670122800000?format=DDDD
