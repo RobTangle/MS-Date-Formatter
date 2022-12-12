@@ -116,7 +116,7 @@ export function parseDate(dtFromReq: string, format: any) {
   resObj.year = date.getFullYear();
   resObj.month = Number(DateTime.fromISO(dt).toFormat("LL"));
   resObj.dmy = `${resObj.utcDay}-${resObj.MM}-${resObj.year}`;
-  resObj.ymd = date.toJSON().split("T")[0];
+  resObj.ymd = `${resObj.year}-${resObj.MM}-${resObj.utcDay}`;
   resObj.toDateString = date.toDateString();
   // resObj.UTCFullyear = date.getUTCFullYear();
   console.log(Date.now());
