@@ -22,7 +22,7 @@ function handleParseDateRequest(req, res) {
         }
         catch (error) {
             console.log("Error en handleParseDate");
-            return res.status(400).send({ error: "Algo salió mal." });
+            return res.status(400).send({ error: error.message });
         }
     });
 }
@@ -30,6 +30,7 @@ exports.handleParseDateRequest = handleParseDateRequest;
 // Funcionamiento: La fecha que se pasa por argumento puede ser un timestamp en milisegundos o una fecha "yyyy-MM-dd" (típica de un input date) o una típica de timestamps como yyyy-MM-ddT00:00:00.00Z.
 // Transformo esa fecha a un formato estándar, y desde ese formato empiezo a crear los distitos tipos de fechas con Luxon.
 function parseDate(dtFromReq, format) {
+    let start = Date.now();
     let dt = dtFromReq;
     console.log(dt);
     if (!dt) {
@@ -43,11 +44,13 @@ function parseDate(dtFromReq, format) {
         date = new Date(dt);
     }
     // Si recibe un formato por query, retorna sólo el key-value para ese formato:
-    if (format) {
-        return {
-            [format]: luxon_1.DateTime.fromISO(dt).toFormat(format),
-        };
-    }
+    // if (format) {
+    //   let endInFormat = Date.now();
+    //   console.log("Time passed = ", endInFormat - start);
+    //   return {
+    //     [format]: DateTime.fromISO(dt).toFormat(format),
+    //   };
+    // }
     console.log(Date.now());
     let resObj = {
         Z: luxon_1.DateTime.fromISO(dt).toFormat("Z"),
@@ -126,7 +129,15 @@ function parseDate(dtFromReq, format) {
     resObj.ymd = `${resObj.year}-${resObj.MM}-${resObj.dd}`;
     resObj.toDateString = date.toDateString();
     // resObj.UTCFullyear = date.getUTCFullYear();
-    console.log(Date.now());
+    let lastEnd = Date.now();
+    let timeLapsed = lastEnd - start;
+    console.log("TimeLapsed to lastEnd = ", timeLapsed);
+    // Si recibe un formato por query, retorna sólo el key-value para ese formato:
+    if (format) {
+        return {
+            [format]: resObj[format],
+        };
+    }
     return resObj;
 }
 exports.parseDate = parseDate;
