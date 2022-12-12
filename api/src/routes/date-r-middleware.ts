@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { DateTime } from "luxon";
+import { checkFormat } from "../validators/genericValidators";
 
 export async function handleParseDateRequest(req: Request, res: Response) {
   try {
@@ -129,10 +130,13 @@ export function parseDate(dtFromReq: string, format: any) {
 
   // Si recibe un formato por query, retorna sólo el key-value para ese formato:
   if (format) {
+    let validatedFormat = checkFormat(format);
     return {
-      [format]: resObj[format],
+      [validatedFormat]: resObj[validatedFormat],
     };
   }
 
   return resObj;
 }
+
+
