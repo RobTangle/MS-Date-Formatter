@@ -114,7 +114,9 @@ This request will respond with an object with many different properties. Each pr
 
 "month": "12",
 
-"dmy": "4-12-2022",
+"dmy": "04-12-2022",
+
+"ymd": "2022-12-04",
 
 "toDateString": "Sun Dec 04 2022"
 
