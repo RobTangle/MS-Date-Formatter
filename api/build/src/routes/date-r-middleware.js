@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.parseDate = exports.handleParseDateRequest = void 0;
 const luxon_1 = require("luxon");
+const genericValidators_1 = require("../validators/genericValidators");
 function handleParseDateRequest(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -134,8 +135,9 @@ function parseDate(dtFromReq, format) {
     console.log("TimeLapsed to lastEnd = ", timeLapsed);
     // Si recibe un formato por query, retorna sólo el key-value para ese formato:
     if (format) {
+        let validatedFormat = (0, genericValidators_1.checkFormat)(format);
         return {
-            [format]: resObj[format],
+            [validatedFormat]: resObj[validatedFormat],
         };
     }
     return resObj;
