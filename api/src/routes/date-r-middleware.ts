@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { DateTime } from "luxon";
 
 export async function handleParseDateRequest(req: Request, res: Response) {
   try {
@@ -13,37 +14,32 @@ export async function handleParseDateRequest(req: Request, res: Response) {
   }
 }
 
-// Funcionamiento: La fecha que se pasa por argumento puede ser un timestamp en milisegundos o una fecha "yyyy-MM-dd" (típica de un input date).
-// Transformo esa fecha a un formato estandar, y desde ese formato empiezo a crear los distitos tipos de fechas con Luxon.
-import { DateTime } from "luxon";
-
-export function parseDate(dtFromReq: any, format: any) {
+// Funcionamiento: La fecha que se pasa por argumento puede ser un timestamp en milisegundos o una fecha "yyyy-MM-dd" (típica de un input date) o una típica de timestamps como yyyy-MM-ddT00:00:00.00Z.
+// Transformo esa fecha a un formato estándar, y desde ese formato empiezo a crear los distitos tipos de fechas con Luxon.
+export function parseDate(dtFromReq: string, format: any) {
   let dt = dtFromReq;
   console.log(dt);
   if (!dt) {
-    throw new Error("La fecha es falsy");
+    throw new Error(
+      "A valid date must be entered in params. Valid formats: utc (yyyy-MM-dd) and unix"
+    );
   }
 
   let date = new Date(dt);
-
   const luxonDate = DateTime.fromISO(dt);
-  console.log("luxonDate = ", luxonDate);
-  console.log("TYPEOF LUXONDATE = ", typeof luxonDate);
-  console.log(luxonDate?.invalidReason);
   if (luxonDate?.invalidReason) {
     let toDate = new Date(Number(dt));
-    console.log("toDate = ", toDate);
     dt = toDate.toISOString();
     date = new Date(dt);
   }
-  const unixToDate = new Date(Number(dt));
-  console.log("unixToDate ", unixToDate);
 
+  // Si recibe un formato por query, retorna sólo el key-value para ese formato:
   if (format) {
     return {
       [format]: DateTime.fromISO(dt).toFormat(format),
     };
   }
+  console.log(Date.now());
 
   let resObj: any = {
     Z: DateTime.fromISO(dt).toFormat("Z"),
@@ -105,16 +101,8 @@ export function parseDate(dtFromReq: any, format: any) {
     MMM: DateTime.fromISO(dt).toFormat("MMM"),
     MMMM: DateTime.fromISO(dt).toFormat("MMMM"),
     MMMMM: DateTime.fromISO(dt).toFormat("MMMMM"),
-
-    // luxonDate: luxonDate,
-    // luxonfromSQL: DateTime.fromSQL(dt),
     date: date,
     dt: dt,
-    unix: undefined,
-    utc: undefined,
-    iso: undefined,
-    locale: undefined,
-    json: undefined,
   };
   resObj.unix = Date.parse(dt); // Input: 2011-04-23    Output: 1303516800000
   resObj.iso = new Date(resObj.unix);
@@ -126,9 +114,10 @@ export function parseDate(dtFromReq: any, format: any) {
   resObj.toString = date.toString();
   resObj.utcDay = date.getUTCDate();
   resObj.year = date.getFullYear();
-  resObj.month = DateTime.fromISO(dt).toFormat("LL");
+  resObj.month = Number(DateTime.fromISO(dt).toFormat("LL"));
   resObj.dmy = `${resObj.utcDay}-${resObj.month}-${resObj.year}`;
   resObj.toDateString = date.toDateString();
   // resObj.UTCFullyear = date.getUTCFullYear();
+  console.log(Date.now());
   return resObj;
 }
